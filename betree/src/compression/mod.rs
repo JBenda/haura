@@ -15,14 +15,18 @@ pub use errors::*;
 
 const DEFAULT_BUFFER_SIZE: Block<u32> = Block(1);
 
+/// Used define compression schema
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub enum CompressionConfiguration {
+    /// no compression will be applied
     None,
     // Lz4,
+    /// use Zstandard compression
     Zstd(Zstd),
 }
 
 impl CompressionConfiguration {
+    /// generate builder from config
     pub fn to_builder(&self) -> Box<dyn CompressionBuilder> {
         match self {
             CompressionConfiguration::None => Box::new(None),
@@ -38,12 +42,17 @@ impl CompressionConfiguration {
 #[derive(Debug, Copy, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
 #[repr(u8)]
 pub enum DecompressionTag {
+    /// no compressed
     None,
+    /// Lz4 compressed
+    /// @attention (De-)Compression for Lz4 is not supported @see CompressionConfiguration, new_decompression
     Lz4,
+    /// Zstdandard compressed
     Zstd,
 }
 
 impl DecompressionTag {
+    /// constructs a object to decompress depending on the Tag
     pub fn new_decompression(&self) -> Result<Box<dyn DecompressionState>> {
         use DecompressionTag as Tag;
         match self {
@@ -65,6 +74,7 @@ impl StaticSize for DecompressionTag {
 pub trait CompressionBuilder: Debug + Size + Send + Sync + 'static {
     /// Returns an object for compressing data into a `Box<[u8]>`.
     fn new_compression(&self) -> Result<Box<dyn CompressionState>>;
+    /// Returns tag needed for decompression
     fn decompression_tag(&self) -> DecompressionTag;
 }
 
@@ -75,7 +85,9 @@ pub trait CompressionState: Write {
     fn finish(&mut self) -> Buf;
 }
 
+/// Trait for the actual decompression. For configurational traits @see CompressionBuilder
 pub trait DecompressionState {
+    /// Decompresses data depending on previouse defined attributes
     fn decompress(&mut self, data: &[u8]) -> Result<Box<[u8]>>;
 }
 

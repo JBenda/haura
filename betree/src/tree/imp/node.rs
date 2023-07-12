@@ -555,21 +555,25 @@ pub struct ChildInfo {
     pub child: NodeInfo,
 }
 
+/// Data needed to reconstruct a Node
 #[derive(serde::Serialize)]
 #[serde(tag = "type", rename_all = "lowercase")]
 pub enum NodeInfo {
+    /// @TODO Data to serialize a inernal node
     Internal {
         level: u32,
         storage: StoragePreference,
         system_storage: StoragePreference,
         children: Vec<ChildInfo>,
     },
+    /// Data to serialize a leaf node
     Leaf {
         level: u32,
         storage: StoragePreference,
         system_storage: StoragePreference,
         entry_count: usize,
     },
+    /// @TODO
     Packed {
         entry_count: u32,
         range: Vec<ByteString>,

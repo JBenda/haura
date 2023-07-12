@@ -1,9 +1,6 @@
 use super::{object_ptr::ObjectPointer, HasStoragePreference};
 use crate::{
-    database::Generation,
-    size::{StaticSize},
-    storage_pool::DiskOffset,
-    tree::PivotKey,
+    database::Generation, size::StaticSize, storage_pool::DiskOffset, tree::PivotKey,
     StoragePreference,
 };
 use serde::{

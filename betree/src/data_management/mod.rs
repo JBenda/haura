@@ -17,9 +17,8 @@ use crate::{
     database::DatasetId,
     migration::DmlMsg,
     size::{Size, StaticSize},
-    storage_pool::{DiskOffset, GlobalDiskId, StoragePoolLayer},
+    storage_pool::{DiskOffset, StoragePoolLayer},
     tree::PivotKey,
-    vdev::Block,
     StoragePreference,
 };
 use parking_lot::Mutex;
@@ -254,8 +253,10 @@ pub enum CopyOnWriteReason {
 
 /// Denotes if an implementor of the [Dml] can utilize an allocation handler.
 pub trait DmlWithHandler {
+    /// type of the allocation handler
     type Handler;
 
+    /// gettor for handler
     fn handler(&self) -> &Self::Handler;
 }
 

@@ -64,6 +64,7 @@ impl CompressionBuilder for Zstd {
 }
 
 impl Zstd {
+    /// constructs a decompressor for Zstdandard compressed data
     pub fn new_decompression() -> Result<Box<dyn DecompressionState>> {
         let mut decoder = Decoder::new()?;
         decoder.set_parameter(DParameter::Format(FrameFormat::Magicless))?;

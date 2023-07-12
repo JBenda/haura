@@ -115,6 +115,7 @@ pub trait Cache: Send + Sync {
     /// Returns a struct that holds access statistics.
     fn stats(&self) -> Self::Stats;
 
+    /// @TODO
     fn verify(&mut self);
 }
 

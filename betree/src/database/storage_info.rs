@@ -32,6 +32,8 @@ impl StorageInfo {
         )
     }
 
+    /// Calcuates number of whole blocks which can be allocated before `threshoald` part
+    /// of the storage is filled.
     pub fn blocks_until_filled_to(&self, threshold: f32) -> Block<u64> {
         let threshold = threshold.clamp(0.0, 1.0);
         Block(

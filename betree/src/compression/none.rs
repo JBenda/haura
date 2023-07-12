@@ -36,6 +36,7 @@ impl CompressionBuilder for None {
 }
 
 impl None {
+    /// constructs a dummy decomprssior (decompression for none compressed data)
     pub fn new_decompression() -> Result<Box<dyn DecompressionState>> {
         Ok(Box::new(NoneDecompression))
     }

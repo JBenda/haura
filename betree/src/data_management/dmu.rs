@@ -499,11 +499,7 @@ where
             {
                 warn!(
                     "Storage tier {class} does not have enough space remaining. {} blocks of {}",
-                    self.handler
-                        .free_space_tier(class)
-                        .unwrap()
-                        .free
-                        .as_u64(),
+                    self.handler.free_space_tier(class).unwrap().free.as_u64(),
                     size.as_u64()
                 );
                 continue;

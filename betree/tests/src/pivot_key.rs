@@ -1,3 +1,4 @@
+#[cfg(test)]
 use super::util;
 use betree_storage_stack::tree::{NodeInfo, PivotKey};
 use rand::seq::IteratorRandom;

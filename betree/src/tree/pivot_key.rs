@@ -30,6 +30,7 @@ use crate::{cow_bytes::CowBytes, database::DatasetId};
 /// ```
 #[derive(Hash, Clone, Debug, PartialEq, Eq, Serialize)]
 pub enum PivotKey {
+    /// @TODO
     LeftOuter(CowBytes, DatasetId),
     Right(CowBytes, DatasetId),
     Root(DatasetId),

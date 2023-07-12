@@ -167,7 +167,7 @@ impl<V: VdevLeafRead + VdevLeafWrite> Parity1<V> {
                 }
                 let (left, right) = buf.split_at(col_length);
                 buf = right;
-                reads.push(disk.read_raw(left, disk_offset).into_future());
+                reads.push_back(disk.read_raw(left, disk_offset).into_future());
             }
         }
         let mut failed_idx = None;

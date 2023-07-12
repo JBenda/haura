@@ -1,12 +1,14 @@
 use super::{
-    dataset::Dataset, errors::*, fetch_ds_data, fetch_ss_data, root_tree_msg::dataset,
-    root_tree_msg::deadlist, root_tree_msg::snapshot, Database, DatasetData, DatasetId,
-    DatasetTree, DeadListData, Generation, ObjectPointer, RootDmu
+    dataset::Dataset,
+    errors::*,
+    fetch_ds_data, fetch_ss_data,
+    root_tree_msg::{dataset, deadlist, snapshot},
+    Database, DatasetData, DatasetId, DatasetTree, DeadListData, Generation, ObjectPointer,
+    RootDmu,
 };
 use crate::{
     allocator::Action,
     cow_bytes::{CowBytes, SlicedCowBytes},
-    data_management::DmlWithHandler,
     tree::{DefaultMessageAction, Tree, TreeLayer},
     StoragePreference,
 };

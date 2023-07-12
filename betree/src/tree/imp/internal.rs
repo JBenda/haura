@@ -655,7 +655,6 @@ impl<'a, N: Size + HasStoragePreference> TakeChildBuffer<'a, ChildBuffer<N>> {
 
 #[cfg(test)]
 mod tests {
-    
 
     use super::*;
     use crate::{
@@ -664,7 +663,7 @@ mod tests {
         tree::default_message_action::{DefaultMessageAction, DefaultMessageActionMsg},
     };
     use bincode::serialized_size;
-    
+
     use quickcheck::{Arbitrary, Gen, TestResult};
     use rand::Rng;
     use serde::Serialize;

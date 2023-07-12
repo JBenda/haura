@@ -8,8 +8,9 @@ use std::{
 use betree_storage_stack::{
     cow_bytes::CowBytes,
     database::{Database, DatabaseConfiguration, Superblock},
+    storage_pool::DiskOffset,
     tree::{DefaultMessageAction, TreeLayer},
-    StoragePreference, storage_pool::DiskOffset,
+    StoragePreference,
 };
 use chrono::{DateTime, Utc};
 use figment::providers::Format;
@@ -126,7 +127,7 @@ enum ObjMode {
     },
     Mv {
         name: String,
-        new_name: String
+        new_name: String,
     },
     Meta {
         obj_name: String,

@@ -1,6 +1,7 @@
-use betree_storage_stack::{Database, StoragePreference};
-
+#[cfg(test)]
 use super::{configs, test_db, TO_MEBIBYTE};
+#[cfg(test)]
+use betree_storage_stack::{Database, StoragePreference};
 
 #[test]
 // Open and close the default object store and test if the objects are preserved

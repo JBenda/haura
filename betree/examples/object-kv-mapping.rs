@@ -26,8 +26,8 @@ fn main() -> Result<()> {
     let os = db.open_named_object_store(b"example", StoragePreference::NONE)?;
 
     let obj1 = os.create_object(&[10, 10, 10])?;
-    obj1.write_at(&[42, 43, 44], 10);
-    obj1.write_at(&[1, 2, 3, 4, 5], 500 * 128 * 1024);
+    obj1.write_at(&[42, 43, 44], 10).unwrap();
+    obj1.write_at(&[1, 2, 3, 4, 5], 500 * 128 * 1024).unwrap();
 
     obj1.set_metadata(b"foo", b"bar")?;
 

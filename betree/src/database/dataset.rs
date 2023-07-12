@@ -1,7 +1,6 @@
-use super::root_tree_msg::dataset;
 use super::{
-    errors::*, fetch_ds_data, Database, DatasetData, DatasetId, DatasetTree, Generation,
-    MessageTree, StorageInfo, RootDmu,
+    errors::*, fetch_ds_data, root_tree_msg::dataset, Database, DatasetData, DatasetId,
+    DatasetTree, Generation, MessageTree, RootDmu, StorageInfo,
 };
 use crate::{
     cow_bytes::{CowBytes, SlicedCowBytes},
@@ -615,6 +614,7 @@ impl Dataset<DefaultMessageAction> {
         self.inner.read().get_node_pivot_mut(pk)
     }
 
+    /// Test for internal api
     #[cfg(feature = "internal-api")]
     pub fn test_get_node_pivot(
         &self,

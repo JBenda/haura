@@ -4,3 +4,4 @@
 heaptrack*
 Cargo.lock
 docs/book
+betree/src/c_interface.rs

@@ -1,14 +1,13 @@
 use super::{
     errors::*,
     root_tree_msg::{deadlist, segment, space_accounting},
-    AtomicStorageInfo, DatasetId, DeadListData, Generation, Object, ObjectPointer,
-    StorageInfo, TreeInner,
+    AtomicStorageInfo, DatasetId, DeadListData, Generation, StorageInfo, TreeInner,
 };
 use crate::{
     allocator::{Action, SegmentAllocator, SegmentId, SEGMENT_SIZE_BYTES},
     atomic_option::AtomicOption,
     cow_bytes::SlicedCowBytes,
-    data_management::{self, CopyOnWriteEvent, Dml, ObjectReference, HasStoragePreference},
+    data_management::{CopyOnWriteEvent, Dml, HasStoragePreference, ObjectReference},
     storage_pool::{DiskOffset, GlobalDiskId},
     tree::{DefaultMessageAction, Node, Tree, TreeLayer},
     vdev::Block,
@@ -96,10 +95,12 @@ impl<OR: ObjectReference + HasStoragePreference> Handler<OR> {
 }
 
 impl<OR: ObjectReference + HasStoragePreference> Handler<OR> {
+    /// Read the current generation (thread safe)
     pub fn current_generation(&self) -> Generation {
         self.current_generation.read()
     }
 
+    /// @TODO
     pub fn update_allocation_bitmap<X>(
         &self,
         offset: DiskOffset,
@@ -147,6 +148,7 @@ impl<OR: ObjectReference + HasStoragePreference> Handler<OR> {
         Ok(())
     }
 
+    /// @TODO
     pub fn get_allocation_bitmap<X>(&self, id: SegmentId, dmu: &X) -> Result<SegmentAllocator>
     where
         X: Dml<Object = Node<OR>, ObjectRef = OR, ObjectPointer = OR::ObjectPointer>,
@@ -187,10 +189,14 @@ impl<OR: ObjectReference + HasStoragePreference> Handler<OR> {
         Ok(allocator)
     }
 
+    /// Get storage information of given disk, containing total capacity and free space in blocks
+    /// @see crate::vdev::BLOCK_SIZE
     pub fn free_space_disk(&self, disk_id: GlobalDiskId) -> Option<StorageInfo> {
         self.free_space.get(&disk_id).map(|elem| elem.into())
     }
 
+    /// Get storage information for given tier, containing total capacity and free space in blocks
+    /// @see crate::vdev::BLOCK_SIZE
     pub fn free_space_tier(&self, class: u8) -> Option<StorageInfo> {
         self.free_space_tier
             .get(class as usize)

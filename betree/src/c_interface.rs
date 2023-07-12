@@ -1,20 +1,14 @@
 //! This module provides the C interface to the database.
 #![allow(non_camel_case_types)]
 use std::{
-    env::SplitPaths,
-    ffi::{CStr, OsStr},
+    ffi::CStr,
     io::{stderr, BufReader, Write},
-    os::{
-        raw::{c_char, c_int, c_uint, c_ulong},
-        unix::prelude::OsStrExt,
-    },
+    os::raw::{c_char, c_int, c_uint, c_ulong},
     process::abort,
     ptr::{null_mut, read, write},
     slice::{from_raw_parts, from_raw_parts_mut},
     sync::Arc,
 };
-
-use libc::{c_void, memcpy};
 
 use crate::{
     cow_bytes::{CowBytes, SlicedCowBytes},
@@ -48,8 +42,11 @@ pub struct obj_store_t(ObjectStore);
 /// The handle of an object in the corresponding object store
 pub struct obj_t<'os>(ObjectHandle<'os>);
 
+/// instanciation of StoragePreference::NONE
 pub const STORAGE_PREF_NONE: storage_pref_t = storage_pref_t(StoragePreference::NONE);
+/// instanciation of StoragePreference::FASTEST
 pub const STORAGE_PREF_FASTEST: storage_pref_t = storage_pref_t(StoragePreference::FASTEST);
+/// instanciation of Storage Preference::SLOWEST
 pub const STORAGE_PREF_SLOWEST: storage_pref_t = storage_pref_t(StoragePreference::SLOWEST);
 
 /// A reference counted byte slice

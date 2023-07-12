@@ -5,10 +5,11 @@ mod object_store;
 mod pivot_key;
 mod util;
 
+#[cfg(test)]
+use betree_storage_stack::env_logger;
 use betree_storage_stack::{
     compression::CompressionConfiguration,
     database::AccessMode,
-    env_logger,
     object::{ObjectHandle, ObjectStore},
     storage_pool::{LeafVdev, TierConfiguration, Vdev},
     Database, DatabaseConfiguration, StoragePoolConfiguration, StoragePreference,
@@ -422,6 +423,7 @@ fn write_sequence(#[case] tier_size_mb: u32) {
     }
 }
 
+#[cfg(test)]
 use rand::prelude::SliceRandom;
 
 #[rstest]

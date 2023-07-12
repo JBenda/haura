@@ -102,9 +102,10 @@ unsafe extern "C" fn backend_init(path: *const gchar, backend_data: *mut gpointe
     return_box(backend, "initialise backend", backend_data)
 }
 
-// This runs after exit handlers, so accessing TLS will fail
+/// This runs after exit handlers, so accessing TLS will fail
 unsafe extern "C" fn backend_fini(backend_data: gpointer) {
-    Box::from_raw(backend_data.cast::<Backend>());
+    // @TODO nothing to do?
+    drop(Box::from_raw(backend_data.cast::<Backend>()));
 }
 
 unsafe extern "C" fn backend_create(
@@ -382,8 +383,7 @@ unsafe extern "C" fn backend_iterate(
 static mut BETREE_BACKEND: JBackend = JBackend {
     type_: JBackendType::J_BACKEND_TYPE_OBJECT,
     component: JBackendComponent::J_BACKEND_COMPONENT_SERVER
-        | JBackendComponent::J_BACKEND_COMPONENT_CLIENT
-        | JBackendComponent::J_BACKEND_COMPONENT_NOT_UNLOADABLE,
+        | JBackendComponent::J_BACKEND_COMPONENT_CLIENT,
     data: ptr::null_mut(),
     anon1: JBackend__bindgen_ty_1 {
         object: JBackend__bindgen_ty_1__bindgen_ty_1 {

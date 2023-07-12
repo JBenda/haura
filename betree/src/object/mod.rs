@@ -48,10 +48,13 @@
 use crate::{
     cow_bytes::{CowBytes, SlicedCowBytes},
     data_management::Dml,
-    database::root_tree_msg::{
-        OBJECT_STORE_DATA_PREFIX, OBJECT_STORE_ID_COUNTER_PREFIX, OBJECT_STORE_NAME_TO_ID_PREFIX,
+    database::{
+        root_tree_msg::{
+            OBJECT_STORE_DATA_PREFIX, OBJECT_STORE_ID_COUNTER_PREFIX,
+            OBJECT_STORE_NAME_TO_ID_PREFIX,
+        },
+        DatasetId, Error, Result,
     },
-    database::{DatasetId, Error, Result},
     migration::{DatabaseMsg, GlobalObjectId},
     size::StaticSize,
     storage_pool::StoragePoolLayer,
